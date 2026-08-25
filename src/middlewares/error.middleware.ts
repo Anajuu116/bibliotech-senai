@@ -15,8 +15,7 @@ export class AppError extends Error {
         req: Request,
         res: Response,
         next: NextFunction,
-): void 
-    {
+): void {
 
         if (err instanceof AppError) {
             res. status(err.statusCode).json({erro: err.message})
