@@ -19,3 +19,30 @@ model cliente {
 
     @@map("cliente")
 }
+
+model exemplar{ 
+    id Int @id @default(autoincrement())
+    titulo String
+    codigoIndetificador String
+    estadoDeConservacao String
+    status String
+
+    exemplar obra[]
+
+    @@map("exemplar")
+}
+
+model obra {
+    id Int @id @default(autoincrement())
+    exemplarId Int
+    isbn String
+    titulo exemplar @relation(fields: [exemplarId], references: [id])
+    autor String
+    editora String
+    genero String
+
+    statusDisponibilidade String @default("Disponível")
+
+    @@map("obra")
+
+}
