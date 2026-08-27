@@ -8,35 +8,24 @@ datasource db {
     }
 
 model cliente {
-    id Int  @id @default(autoincrement())
+    clienteId Int  @id @default(autoincrement())
     nome String
     matricula String @unique
     email String @unique
     senha String
     telefone String
+    possuiPendencia Boolean
 
     criadoEm DateTime @default(now())
 
     @@map("cliente")
 }
 
-model exemplar{ 
-    id Int @id @default(autoincrement())
-    titulo String
-    codigoIndetificador String
-    estadoDeConservacao String
-    status String
-
-    exemplar obra[]
-
-    @@map("exemplar")
-}
-
 model obra {
-    id Int @id @default(autoincrement())
+    obraId Int @id @default(autoincrement())
     exemplarId Int
     isbn String
-    titulo exemplar @relation(fields: [exemplarId], references: [id])
+    titulo exemplar @relation(fields: [exemplarId], references: [exemplarId])
     autor String
     editora String
     genero String
@@ -45,4 +34,18 @@ model obra {
 
     @@map("obra")
 
+}
+
+model exemplar{ 
+    exemplarId Int @id @default(autoincrement())
+    obraId Int
+    obra obra @relation(fields: [obraId], references: [obraId])
+    titulo String
+    codigoIndetificador String
+    estadoDeConservacao String
+    status String
+
+    exemplar obra[]
+
+    @@map("exemplar")
 }
