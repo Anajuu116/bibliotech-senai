@@ -1,51 +1,70 @@
 generator client {
-    provider = "prisma-client-js"
+  provider = "prisma-client-js"
 }
 
 datasource db {
-    provider = "sqlite"
-     url = env("DATABASE_URL")
-    }
+  provider = "sqlite"
+  url = env("DATABASE_URL")
+}
 
 model cliente {
-    clienteId Int  @id @default(autoincrement())
-    nome String
-    matricula String @unique
-    email String @unique
-    senha String
-    telefone String
-    possuiPendencia Boolean
+  clienteId       Int      @id @default(autoincrement())
+  nome            String
+  matricula       String   @unique
+  email           String   @unique
+  senha           String
+  telefone        String
+  possuiPendencia Boolean  @default(false)
 
-    criadoEm DateTime @default(now())
+  criadoEm DateTime @default(now())
 
-    @@map("cliente")
+  emprestimos emprestimo[]
+
+  @@map("cliente")
 }
 
 model obra {
-    obraId Int @id @default(autoincrement())
-    exemplarId Int
-    isbn String
-    titulo exemplar @relation(fields: [exemplarId], references: [exemplarId])
-    autor String
-    editora String
-    genero String
+  obraId  Int    @id @default(autoincrement())
+  isbn    String @unique
+  titulo  String
+  autor   String
+  editora String
+  genero  String
 
-    statusDisponibilidade String @default("Disponível")
+  statusDisponibilidade String @default("Disponivel")
 
-    @@map("obra")
+  exemplares exemplar[]
 
+  @@map("obra")
 }
 
-model exemplar{ 
-    exemplarId Int @id @default(autoincrement())
-    obraId Int
-    obra obra @relation(fields: [obraId], references: [obraId])
-    titulo String
-    codigoIndetificador String
-    estadoDeConservacao String
-    status String
+model exemplar {
+  exemplarId          Int    @id @default(autoincrement())
+  obraId              Int
+  obra                obra   @relation(fields: [obraId], references: [obraId])
+  codigoIdentificador String @unique
+  estadoConservacao   String
+  status              String @default("Disponivel")
 
-    exemplar obra[]
+  emprestimos emprestimo[]
 
-    @@map("exemplar")
+  @@map("exemplar")
+}
+
+model emprestimo {
+  emprestimoId Int @id @default(autoincrement())
+
+  clienteId  Int
+  exemplarId Int
+
+  cliente  cliente  @relation(fields: [clienteId], references: [clienteId])
+  exemplar exemplar @relation(fields: [exemplarId], references: [exemplarId])
+
+  dataRetirada          DateTime  @default(now())
+  dataPrevistaDevolucao DateTime
+  dataDevolucaoReal     DateTime?
+
+  statusContrato String @default("Ativo")
+
+  @@map("emprestimos")
 }

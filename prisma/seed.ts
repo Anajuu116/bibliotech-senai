@@ -18,11 +18,11 @@ async function main() {
 
   await prisma.exemplar.createMany({
     data: [
-      { obraId: romance.id, codigoIdentificador: 'EX-001', estadoConservacao: 'Novo', status: 'Disponivel' },
-      { obraId: romance.id, codigoIdentificador: 'EX-002', estadoConservacao: 'Bom', status: 'Disponivel' },
-      { obraId: ficcao.id, codigoIdentificador: 'EX-003', estadoConservacao: 'Bom', status: 'Disponivel' },
-      { obraId: ficcao.id, codigoIdentificador: 'EX-004', estadoConservacao: 'Desgastado', status: 'Disponível' },
-      { obraId: tecnico.id, codigoIdentificador: 'EX-005', estadoConservacao: 'Novo', status: 'Disponivel' },
+      { obraId: romance.obraId, exemplarId: 'EX-001', estadoConservacao: 'Novo', status: 'Disponível' },
+      { obraId: romance.obraId, exemplarId: 'EX-002', estadoConservacao: 'Bom', status: 'Disponível' },
+      { obraId: ficcao.obraId, exemplarId: 'EX-003', estadoConservacao: 'Bom', status: 'Disponível' },
+      { obraId: ficcao.obraId, exemplarId: 'EX-004', estadoConservacao: 'Desgastado', status: 'Disponível' },
+      { obraId: tecnico.obraId, exemplarId: 'EX-005', estadoConservacao: 'Novo', status: 'Disponível' },
     ],
   });
 
@@ -36,9 +36,8 @@ async function main() {
       matricula: '2026001',
       email: 'leitor@teste.com',
       senha: senhaHash,
+      telefone: '11999999999',
       possuiPendencia: false,
-      tipoLeitor: 'Padrao',
-      emprestimosAnteriores: '0',
     },
   });
 
