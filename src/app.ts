@@ -11,7 +11,7 @@ app.use(express.json());
 
 app.use('/api', routes);
 
-app.get('/', (req, res) => {
+app.get('/', (_req, res) => {
     res.json({mensagem: 'API Bibliotech está funcionando!'});
 });
 

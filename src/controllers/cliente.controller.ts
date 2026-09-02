@@ -2,9 +2,9 @@ import { Request, Response } from "express";
 import * as clienteService from '../services/cliente.service';
 
 export async function criar(req: Request, res: Response): Promise<void>{
-    const{nome, matricula, email, senha, telefone} = req.body;
+    const { nome, matricula, email, senha, telefone, possuiPendencia = false } = req.body;
 
-    const cliente = await clienteService.CriarCliente({nome, matricula, email, senha, telefone});
+    const cliente = await clienteService.CriarCliente({nome, matricula, email, senha, telefone, possuiPendencia});
     res.status(201).json(cliente);
 }
 export async function listar(_req: Request, res: Response): Promise<void>{

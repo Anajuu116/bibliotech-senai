@@ -5,24 +5,24 @@ async function main() {
   console.log('Iniciando o seed da base de dados do BiblioTech...');
 
   const romance = await prisma.obra.create({
-    data: { titulo: 'Dom Casmurro', isbn: '9788535910663', autor: 'Machado de Assis', editora: 'Ática', genero: 'Romance' },
+    data: { titulo: 'Dom Casmurro', isbn: '9788535910663', autor: 'Machado de Assis', editora: 'Ática', genero: 'Romance', exemplarId: 'EX001'},
   });
   const ficcao = await prisma.obra.create({
-    data: { titulo: '1984', isbn: '9788535914849', autor: 'George Orwell', editora: 'Companhia das Letras', genero: 'Ficção' },
+    data: { titulo: '1984', isbn: '9788535914849', autor: 'George Orwell', editora: 'Companhia das Letras', genero: 'Ficção', exemplarId: 'EX002'},
   });
   const tecnico = await prisma.obra.create({
-    data: { titulo: 'Clean Code', isbn: '9780132350884', autor: 'Robert C. Martin', editora: 'Prentice Hall', genero: 'Técnico' },
+    data: { titulo: 'Clean Code', isbn: '9780132350884', autor: 'Robert C. Martin', editora: 'Prentice Hall', genero: 'Técnico', exemplarId: 'EX003' },
   });
 
   console.log('Obras criadas: Dom Casmurro, 1984, Clean Code.');
 
   await prisma.exemplar.createMany({
     data: [
-      { obraId: romance.obraId, exemplarId: 'EX-001', estadoConservacao: 'Novo', status: 'Disponível' },
-      { obraId: romance.obraId, exemplarId: 'EX-002', estadoConservacao: 'Bom', status: 'Disponível' },
-      { obraId: ficcao.obraId, exemplarId: 'EX-003', estadoConservacao: 'Bom', status: 'Disponível' },
-      { obraId: ficcao.obraId, exemplarId: 'EX-004', estadoConservacao: 'Desgastado', status: 'Disponível' },
-      { obraId: tecnico.obraId, exemplarId: 'EX-005', estadoConservacao: 'Novo', status: 'Disponível' },
+      { obraId: romance.obraId, titulo: '', exemplarId: 'EX-001', estadoDeConservacao: 'Novo', status: 'Disponível', codigoIndetificador: ''},
+      { obraId: romance.obraId, titulo: '', exemplarId: 'EX-002', estadoDeConservacao: 'Bom', status: 'Disponível', codigoIndetificador: '' },
+      { obraId: ficcao.obraId, titulo: '', exemplarId: 'EX-003', estadoDeConservacao: 'Bom', status: 'Disponível', codigoIndetificador: '' },
+      { obraId: ficcao.obraId, titulo: '', exemplarId: 'EX-004', estadoDeConservacao: 'Desgastado', status: 'Disponível', codigoIndetificador: '' },
+      { obraId: tecnico.obraId, titulo: '', exemplarId: 'EX-005', estadoDeConservacao: 'Novo', status: 'Disponível', codigoIndetificador: '' },
     ],
   });
 

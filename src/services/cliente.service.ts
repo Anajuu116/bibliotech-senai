@@ -17,6 +17,7 @@ interface CriarClienteInput{
     email: string,
     senha: string,
     telefone: string,
+    possuiPendencia: boolean,
 }
 
 export async function CriarCliente(dados: CriarClienteInput){
@@ -33,13 +34,13 @@ export async function CriarCliente(dados: CriarClienteInput){
 export async function listarClientes(){
     return prisma.cliente.findMany({
         select: SELECT_CLIENTE_PUBLICO,
-        orderBy: {id: 'asc'},
+        orderBy: {clienteId: 'asc'},
     });
 }
 
-export async function buscarClientePorId(id: number){
+export async function buscarClientePorId(clienteId: number){
     const cliente = await prisma.cliente.findUnique({
-        where: {id},
+        where: {clienteId},
         select: SELECT_CLIENTE_PUBLICO,
     });
 

@@ -17,13 +17,13 @@ export async function login(dados: LoginInput){
     }
 
     const token = jwt.sign(
-        {id: cliente.id, email: cliente.email},
+        {id: cliente.clienteId, email: cliente.email},
         process.env.JWT_SECRET as string,
         { expiresIn: (process.env.JWT_EXPIRES_IN || '1d') as jwt.SignOptions['expiresIn']}
     );
 
     return{
         token,
-        cliente: {id: cliente.id, nome: cliente.nome, email: cliente.email},
+        cliente: {id: cliente.clienteId, nome: cliente.nome, email: cliente.email},
     };
 }

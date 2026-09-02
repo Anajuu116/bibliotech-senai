@@ -77,7 +77,7 @@ export async function buscarEmprestimoPorId(id: number, clienteId: number) {
 }
 
 export async function devolverExemplar(id: number, clienteId: number) {
-  return prisma.$transaction(async (tx) => {
+  return prisma.$transaction(async (tx: any) => {
     const emprestimo = await tx.emprestimo.findUnique({ where: { emprestimoId: id } });
 
     if (!emprestimo) {

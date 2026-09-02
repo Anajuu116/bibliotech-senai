@@ -30,6 +30,7 @@ model obra {
   autor   String
   editora String
   genero  String
+  estadoDeConservacao   String
 
   statusDisponibilidade String @default("Disponivel")
 
@@ -43,8 +44,9 @@ model exemplar {
   obraId              Int
   obra                obra   @relation(fields: [obraId], references: [obraId])
   codigoIdentificador String @unique
-  estadoConservacao   String
-  status              String @default("Disponivel")
+  estadoDeConservacao String
+
+  statusDisponibilidade String @default("Disponivel")
 
   emprestimos emprestimo[]
 

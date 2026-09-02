@@ -2,11 +2,14 @@ import { prisma } from '../config/prisma';
 import { AppError } from '../middlewares/error.middleware';
 
 interface CriarObraInput {
+  exemplarId: number;
   titulo: string;
   isbn: string;
   autor: string;
   editora: string;
   genero: string;
+  estadoDeConservacao: string;
+
 }
 
 interface AtualizarObraInput {
@@ -15,7 +18,8 @@ interface AtualizarObraInput {
   autor?: string;
   editora?: string;
   genero?: string;
-  statusDisponibilidade?: string
+  statusDisponibilidade?: string;
+  estadoDeConservacao: string;
 }
 
 export async function criarObra(dados: CriarObraInput) {
@@ -28,13 +32,13 @@ export async function criarObra(dados: CriarObraInput) {
 
 export async function listarObras() {
   return prisma.obra.findMany({
-    orderBy: { id: 'asc' },
+    orderBy: { obraId: 'asc' },
   });
 }
 
-export async function buscarObraPorId(id: number) {
+export async function buscarObraPorId(obraId: number) {
   const obra = await prisma.obra.findUnique({
-    where: { id },
+    where: { obraId },
     include: { exemplares: true },
   });
 
@@ -45,13 +49,12 @@ export async function buscarObraPorId(id: number) {
   return obra;
 }
 
-export async function atualizarObra(id: number, dados: AtualizarObraInput) {
-  await buscarObraPorId(id);
+export async function atualizarObra(obraId: number, dados: AtualizarObraInput) {
+  await buscarObraPorId(obraId);
 
   return prisma.obra.update({
-    where: { id },
+    where: { obraId },
     data: dados,
-    include: { obra: true },
-    
+    include: { exemplares: true },
   });
 }
