@@ -8,7 +8,7 @@ const routes = Router();
 
 routes.use('/auth', authRoutes);
 routes.use('/clientes', clienteRoutes);
-routes.use('/veiculos', obraRoutes);
+routes.use('/obras', obraRoutes);
 routes.use('/emprestimo', emprestimoRoutes);
 
 export {routes};
