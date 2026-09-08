@@ -3,7 +3,7 @@ import { prisma } from '../config/prisma';
 import { AppError } from '../middlewares/error.middleware';
 
 const SELECT_CLIENTE_PUBLICO = {
-    id: true,
+    clienteId: true,
     nome: true,
     matricula: true,
     email: true,

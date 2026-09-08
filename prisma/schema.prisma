@@ -30,10 +30,6 @@ model obra {
   autor   String
   editora String
   genero  String
-  estadoDeConservacao   String
-
-  statusDisponibilidade String @default("Disponivel")
-
   exemplares exemplar[]
 
   @@map("obra")
