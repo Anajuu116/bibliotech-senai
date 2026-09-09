@@ -21,14 +21,38 @@ interface CriarClienteInput{
 }
 
 export async function CriarCliente(dados: CriarClienteInput){
-    const senhaHash = await bcrypt.hash(dados.senha, 10)
+   if (!dados.senha) {
+    throw new AppError('A senha é obrigatória.', 400);
+  }
 
-    const clienteCriado = await prisma.cliente.create({
-        data: {...dados, senha: senhaHash},
-        select: SELECT_CLIENTE_PUBLICO
-    })
+  // 2. Validação se o e-mail ou a matrícula já existem (Evita falhas brutas de Unique no banco)
+  const clienteExiste = await prisma.cliente.findFirst({
+    where: {
+      OR: [
+        { email: dados.email },
+        { matricula: dados.matricula }
+      ]
+    }
+  });
 
-    return clienteCriado;
+  if (clienteExiste) {
+    throw new AppError('E-mail ou matrícula já cadastrados.', 400);
+  }
+
+  // 3. Hash da senha
+  const senhaHash = await bcrypt.hash(dados.senha, 10);
+
+  // 4. Criação no banco
+  const clienteCriado = await prisma.cliente.create({
+    data: {
+      ...dados,
+      senha: senhaHash,
+      possuiPendencia: dados.possuiPendencia ?? false,
+    },
+    select: SELECT_CLIENTE_PUBLICO
+  });
+
+  return clienteCriado;
 }
 
 export async function listarClientes(){

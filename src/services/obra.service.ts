@@ -24,7 +24,15 @@ interface AtualizarObraInput {
 
 export async function criarObra(dados: CriarObraInput) {
   const obra = await prisma.obra.create({
-    data: dados,
+    data: {
+      titulo: dados.titulo,
+      autor: dados.autor,
+      editora: dados.editora,
+      genero: dados.genero,
+      exemplarId: dados.exemplarId,
+      estadoDeConservacao: dados.estadoDeConservacao,
+      isbn: dados.isbn 
+    }
   });
 
   return obra;

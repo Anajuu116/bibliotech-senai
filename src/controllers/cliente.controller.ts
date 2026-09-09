@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import * as clienteService from '../services/cliente.service';
 
 export async function criar(req: Request, res: Response): Promise<void>{
+    console.log("BODY RECEBIDO:", req.body);
     const { nome, matricula, email, senha, telefone, possuiPendencia = false } = req.body;
 
     const cliente = await clienteService.CriarCliente({nome, matricula, email, senha, telefone, possuiPendencia});

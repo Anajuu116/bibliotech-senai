@@ -17,7 +17,7 @@ export async function abrirEmprestimo(clienteId: number, dados: AbrirEmprestimoI
       throw new AppError('Exemplar não encontrado.', 404);
     }
 
-    if (exemplar.status !== 'Disponivel') {
+    if (exemplar.statusDisponibilidade !== 'Disponivel') {
       throw new AppError('Este exemplar não está disponível para empréstimo no momento.', 400);
     }
 
@@ -33,7 +33,7 @@ export async function abrirEmprestimo(clienteId: number, dados: AbrirEmprestimoI
 
     await tx.exemplar.update({
       where: { exemplarId: exemplar.exemplarId },
-      data: { status: 'Emprestado' },
+      data: { statusDisponibilidade: 'Emprestado' },
     });
 
     const emprestimo = await tx.emprestimo.create({
@@ -120,7 +120,7 @@ export async function cancelarEmprestimo(id: number, clienteId: number) {
 
     await tx.exemplar.update({
       where: { exemplarId: emprestimo.exemplarId },
-      data: { status: 'Disponivel' },
+      data: { statusDisponibilidade: 'Disponivel' },
     });
 
     const emprestimoAtualizado = await tx.emprestimo.update({
