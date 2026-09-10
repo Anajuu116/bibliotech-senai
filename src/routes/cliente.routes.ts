@@ -7,6 +7,6 @@ const router = Router();
 
 router.post('/', clienteController.criar);
 router.get('/', authMiddleware, clienteController.listar);
-router.get('/', authMiddleware, clienteController.buscarPorId);
+router.get('/:id', authMiddleware, clienteController.buscarPorId);
 
 export default router; 

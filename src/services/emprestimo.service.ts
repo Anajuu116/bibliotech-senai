@@ -92,7 +92,7 @@ export async function devolverExemplar(id: number, clienteId: number) {
 
     await tx.exemplar.update({
       where: { exemplarId: emprestimo.exemplarId },
-      data: { status: 'Disponivel' },
+      data: { statusDisponibilidade: 'Disponivel' },
     });
 
     const emprestimoAtualizado = await tx.emprestimo.update({

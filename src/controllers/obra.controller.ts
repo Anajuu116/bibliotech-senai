@@ -3,8 +3,8 @@ import { Request, Response } from 'express';
 import * as obraService from '../services/obra.service';
  
 export async function criar(req: Request, res: Response): Promise<void> {
-  const { titulo, isbn, autor, editora, genero, exemplarId } = req.body;
-  const obraCriada = await obraService.criarObra({titulo, isbn, autor, editora, genero, exemplarId: Number(exemplarId), estadoDeConservacao: String()});
+  const { titulo, isbn, autor, editora, genero } = req.body;
+  const obraCriada = await obraService.criarObra({titulo, isbn, autor, editora, genero});
   res.status(201).json(obraCriada);
 }
  

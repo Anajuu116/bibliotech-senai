@@ -2,13 +2,11 @@ import { prisma } from '../config/prisma';
 import { AppError } from '../middlewares/error.middleware';
 
 interface CriarObraInput {
-  exemplarId: number;
   titulo: string;
   isbn: string;
   autor: string;
   editora: string;
   genero: string;
-  estadoDeConservacao: string;
 
 }
 
@@ -18,8 +16,6 @@ interface AtualizarObraInput {
   autor?: string;
   editora?: string;
   genero?: string;
-  statusDisponibilidade?: string;
-  estadoDeConservacao: string;
 }
 
 export async function criarObra(dados: CriarObraInput) {
@@ -29,8 +25,6 @@ export async function criarObra(dados: CriarObraInput) {
       autor: dados.autor,
       editora: dados.editora,
       genero: dados.genero,
-      exemplarId: dados.exemplarId,
-      estadoDeConservacao: dados.estadoDeConservacao,
       isbn: dados.isbn 
     }
   });
