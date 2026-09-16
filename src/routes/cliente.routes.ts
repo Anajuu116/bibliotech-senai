@@ -41,6 +41,40 @@ const router = Router();
 
 router.post('/', clienteController.criar);
 router.get('/', authMiddleware, clienteController.listar);
+/**
+ * @openapi
+ * /api/cliente/{id}:
+ *   get:
+ *     tags: [Clientes]
+ *     summary: Busca um cliente pelo id
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - name: id
+ *         in: path
+ *         required: true
+ *         schema: { type: integer }
+ *         example: 1
+ *     responses:
+ *       200:
+ *         description: Cliente encontrado
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Cliente'
+ *       401:
+ *         description: Token ausente, inválido ou expirado
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/RespostaErro'
+ *       404:
+ *         description: Cliente não encontrado
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/RespostaErro'
+ */
 router.get('/:id', authMiddleware, clienteController.buscarPorId);
 
 export default router; 
