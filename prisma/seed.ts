@@ -4,6 +4,12 @@ import { prisma } from '../src/config/prisma';
 async function main() {
   console.log('Iniciando o seed da base de dados do BiblioTech...');
 
+  const obrasExistentes = await prisma.obra.count();
+  if (obrasExistentes > 0) {
+    console.log('Banco já populado anteriormente. Nada a fazer.');
+    return;
+  }
+
   const romance = await prisma.obra.create({
     data: { titulo: 'Dom Casmurro', isbn: '9788535910663', autor: 'Machado de Assis', editora: 'Ática', genero: 'Romance'},
   });
