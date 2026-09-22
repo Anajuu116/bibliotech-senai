@@ -8,11 +8,12 @@
   "build": "tsc",
   "start": "node dist/server.js",
   "postinstall": "prisma generate",
-  "vercel-build": "prisma generate && prisma migrate deploy",
+  "vercel-build": "prisma generate && prisma migrate deploy && prisma db seed",
   "prisma:generate": "prisma generate",
   "prisma:migrate": "prisma migrate dev",
   "prisma:studio": "prisma studio",
   "seed": "prisma db seed"
+
 },
   "keywords": [],
   "author": "",
