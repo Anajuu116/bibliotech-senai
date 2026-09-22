@@ -15,6 +15,7 @@ model cliente {
   email           String   @unique
   senha           String
   telefone        String
+  endereco        String?
   possuiPendencia Boolean  @default(false)
 
   criadoEm DateTime @default(now())
